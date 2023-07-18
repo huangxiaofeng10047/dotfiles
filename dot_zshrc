@@ -1,0 +1,155 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+# 获取windows的ip
+export WIN_IP=`cat /etc/resolv.conf | grep nameserver | awk '{print $2}'`
+# 删除 ~/.proxychains.conf 中 [ProxyList] 所在行到文件末尾的全部内容
+sed -i '/\[ProxyList\]/,$d' ~/.proxychains.conf
+# 往文件末尾添加socks5设置，这个 7890 是我的 qv②ray 的 socks5 端口号，改成你自己的
+echo '[ProxyList]\nsocks5 '${WIN_IP}' 7890' >> ~/.proxychains.conf
+# 设置别名；使用 ~/.proxychains.conf 作为proxychains的配置文件；让proxychains quiet（不输出一大串东西）
+alias pc='proxychains4 -q -f ~/.proxychains.conf'
+# 用来手动开关代理，建议走 http 协议，因为 wget 不支持 socks5
+my_proxy=http://${WIN_IP}:7890
+alias p-on='export all_proxy='${my_proxy}' http_proxy='${my_proxy}' https_proxy='${my_proxy}''
+alias p-off='unset all_proxy http_proxy https_proxy'
+# source /usr/share/zsh/share/antigen.zsh
+# Load the oh-my-zsh's library
+# oh-my-zsh 会启用历史命令、按键绑定等功能
+#  pipx ensurepath
+# antigen use oh-my-zsh
+# # 启用一些 bundle
+# antigen bundle zsh-users/zsh-syntax-highlighting
+# antigen bundle zsh-users/zsh-autosuggestions
+# antigen bundle zsh-users/zsh-completions
+# antigen bundle git
+# antigen bundle heroku
+# antigen bundle pip
+# antigen bundle lein
+# antigen bundle command-not-found
+# antigen bundle z
+# antigen bundle paulirish/git-open
+# antigen bundle kubernetes 
+# antigen bundle kube-ps1
+source <(antibody init)
+antibody bundle < ~/.zsh_plugins.txt
+
+# 语法高亮功能
+# antigen bundle zsh-users/zsh-syntax-highlighting
+
+# # 代码提示功能
+# antigen bundle zsh-users/zsh-autosuggestions
+
+# # 自动补全功能
+# antigen bundle zsh-users/zsh-completions
+# # Load the theme
+# antigen theme dracula/zsh dracula
+# antigen apply
+# for ls colors
+# # LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34:cd=34:su=36:sg=36:tw=34:ow=34"
+# export LS_COLORS
+#启用starship
+eval "$(starship init zsh)"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$N..VM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source .venv/imagesearch/bin/activate
+
+if [[ -z $ranger ]];
+then
+ python $HOME/.script/rainbow-ascii-art.py
+fi
+export NO_PROXY=localhost,127.0.0.1,10.0.37.153,qua.io,10.7.20.12
+export GOPATH="/home/xfhuang/workspace/go"
+export PATH=$PATH:$GOPATH/bin:/home/xfhuang/.local/share/JetBrains/Toolbox/scripts
+alias blog='cd /mnt/e/myhugo'
+
+ if [ $SHLVL = 1 ] ; then
+   (fcitx-autostart > /dev/null 2>&1 &)
+   xset -r 49  > /dev/null 2>&1
+ fi
+
+# export DISPLAY=`cat /etc/resolv.conf | grep nameserver | awk '{print $2}'`:0
+export GOPROXY=https://goproxy.cn
+
+export PATH=$PATH:/home/xfhuang/.local/share/gem/ruby/3.0.0/bin:/home/xfhuang/.local/bin
+export GO_BINARY_BASE_URL=https://golang.google.cn/dl/
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+export GOROOT_BOOTSTRAP=$GOROOT
+# GTX_IM_MODULE=fcitx
+# QT_IM_MODULE=fcitx
+# XMODIFIERS=@im=fcitx
+# SDL_IM_MODULE=fcitx
+# export HISTFILE=/home/xfhuang/.zsh_history
+ source <(antibody init)
+export ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh"
+
+antibody bundle < ~/.zsh_plugins.txt
+
+alias ls='colorls'
+alias ll="exa -l -g --icons --git"
+alias llt="exa -1 --icons --tree --git-ignore"
+ source $(dirname $(gem which colorls))/tab_complete.sh
+ alias lc='colorls -lA --sd'
+alias jdk8='sdk use java 8.0.372-zulu'
+alias jdk11='sdk use java 11.0.19-zulu'
+alias jdk17='sdk use java  17.0.7-zulu'
+alias jdk20='sdk use java 20-zulu'
+alias  k8slocal=" cd workspace/tools/wsl2-minikube"
+alias  toolbox="nohup sudo -u xfhuang /home/xfhuang/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox >/dev/null 2>&1 &"
+
+#datafaker 再zsh下报错添加
+setopt no_nomatch
+# daemonize -e /tmp/dbus-${user}.log -o /tmp/dbus-${USER}.log -p /tmp/dbus-${USER}.pid -l /tmp/dbus-${USER}.pid -a /usr/bin/dbus-daemon --address="unix:path=$XDG_RUNTIME_DIR/bus" --session --nofork >> /dev/null 2>&1
+# export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
+# daemonize -e /tmp/fcitx5.log -o /tmp/fcitx5.log -p /tmp/fcitx5.pid -l /tmp/fcitx5.pid  -a /usr/bin/fcitx5 --disable=wayland  >> /dev/null 2>&1
+
+#  export INPUT_METHOD=fcitx
+#  export GTK_IM_MODULE=fcitx
+#  export QT_IM_MODULE=fcitx
+#  export XMODIFIERS=@im=fcitx
+# display
+#update by 2023217
+# export GDK_DPI_SCALE=1
+export DISPLAY=:0
+# export WAYLAND_DISPLAY=wayland-0
+# export XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+# export PULSE_SERVER=/mnt/wslg/PulseServer
+if [[ $TMUX != "" ]] then
+  export    TERM="xterm-256color"
+else
+    export TERM="xterm-256color"
+fi
+source /home/xfhuang/.sdkman/bin/sdkman-init.sh
+alias kctx="kubectx"
+alias kns="kubens"
+#  PROMPT='$(kube_ps1)'$PROMPT
+
+export KUBECONFIG=:/home/xfhuang/.kube/additional_config:/home/xfhuang/.kube/additional_config
+
+# pnpm
+export PNPM_HOME="/home/xfhuang/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+KUBECONFIG=~/.kube/config111:~/.kube/config222:~/.kube/config333  kubectl config view --merge --flatten > ~/.kube/config
+export KUBECONFIG=~/.kube/config
+export FLINK_HOME=/home/xfhuang/workspace/bigdata/flink/flink-dist/target/flink-1.17-SNAPSHOT-bin/flink-1.17-SNAPSHOT
+export M2_HOME=~/.sdkman/candidates/maven/current
+export DOWNLOADS=/mnt/d/Users/Administrator/Downloads
+# source $(dirname $(gem which colorls))/tab_complete.sh
+# add readlinealias ls='colorls'
+source $(dirname $(gem which colorls))/tab_complete.sh
+# fpath=(/home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/custom/completions /home/xfhuang/.local/share/gem/ruby/3.0.0/gems/colorls-1.4.6/zsh /usr/local/share/zsh/site-functions /usr/share/zsh/site-functions /usr/share/zsh/functions/Calendar /usr/share/zsh/functions/Chpwd /usr/share/zsh/functions/Completion /usr/share/zsh/functions/Completion/Base /usr/share/zsh/functions/Completion/Linux /usr/share/zsh/functions/Completion/Unix /usr/share/zsh/functions/Completion/X /usr/share/zsh/functions/Completion/Zsh /usr/share/zsh/functions/Exceptions /usr/share/zsh/functions/MIME /usr/share/zsh/functions/Math /usr/share/zsh/functions/Misc /usr/share/zsh/functions/Newuser /usr/share/zsh/functions/Prompts /usr/share/zsh/functions/TCP /usr/share/zsh/functions/VCS_Info /usr/share/zsh/functions/VCS_Info/Backends /usr/share/zsh/functions/Zftp /usr/share/zsh/functions/Zle /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/lib /home/xfhuang/.antigen/bundles/zsh-users/zsh-syntax-highlighting /home/xfhuang/.antigen/bundles/zsh-users/zsh-autosuggestions /home/xfhuang/.antigen/bundles/zsh-users/zsh-completions /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/heroku /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/pip /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/lein /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/command-not-found /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/z /home/xfhuang/.antigen/bundles/paulirish/git-open /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/kube-ps1 /home/xfhuang/.antigen/bundles/zsh-users/zsh-completions/src)
+# PROMPT='$(kube_ps1)'$PROMPTsource /usr/share/nvm/init-nvm.sh
+# backup file
