@@ -60,8 +60,8 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$N..VM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-source .venv/imagesearch/bin/activate
+#开启python虚拟化的环境
+#source .venv/imagesearch/bin/activate
 
 if [[ -z $ranger ]];
 then
