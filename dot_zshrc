@@ -67,7 +67,7 @@ if [[ -z $ranger ]];
 then
  python $HOME/.script/rainbow-ascii-art.py
 fi
-export NO_PROXY=localhost,127.0.0.1,10.0.37.153,qua.io,10.7.20.12
+export NO_PROXY=localhost,127.0.0.1,10.0.37.153,qua.io,10.7.20.12,192.168.49.2
 export GOPATH="/home/xfhuang/workspace/go"
 export PATH=$PATH:$GOPATH/bin:/home/xfhuang/.local/share/JetBrains/Toolbox/scripts
 alias blog='cd /mnt/e/myhugo'
