@@ -102,7 +102,7 @@ alias llt="exa -1 --icons --tree --git-ignore"
 alias jdk8='sdk use java 8.0.372-zulu'
 alias jdk11='sdk use java 11.0.19-zulu'
 alias jdk17='sdk use java  17.0.7-zulu'
-alias jdk20='sdk use java 20-zulu'
+alias jdk20='sdk use java  20.0.2-zulu'
 alias  k8slocal=" cd workspace/tools/wsl2-minikube"
 alias  toolbox="nohup sudo -u xfhuang /home/xfhuang/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox >/dev/null 2>&1 &"
 
