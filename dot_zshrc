@@ -105,7 +105,7 @@ alias jdk17='sdk use java  17.0.7-zulu'
 alias jdk20='sdk use java  20.0.2-zulu'
 alias  k8slocal=" cd workspace/tools/wsl2-minikube"
 alias  toolbox="nohup sudo -u xfhuang /home/xfhuang/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox >/dev/null 2>&1 &"
-alias emacs=emacs -nw
+alias emacs='emacs -nw'
 
 #datafaker 再zsh下报错添加
 setopt no_nomatch
