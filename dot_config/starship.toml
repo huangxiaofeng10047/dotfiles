@@ -1,38 +1,36 @@
 # Get editor completions based on the config schema
-"$schema" = 'https://starship.rs/config-schema.json'
-format = """
-$status \
-${custom.tztime} \
-${custom.uptime} \
-$username\
-$hostname\
-$shlvl\
-$kubernetes\
-$directory\
-$git_branch\
-$git_commit\
-$git_state\
-$git_status\
-$docker_context\
-$package\
-$cmake\
-$nodejs\
-$perl\
-$python \
-$ruby\
-$rust\
-$terraform\
-$vagrant\
-$nix_shell\
-$conda\
-$aws \
-$env_var\
-$cmd_duration\
-$line_break\
-$character"""
+# "$schema" = 'https://starship.rs/config-schema.json'
+# format = """
+# $status \
+# $username\
+# $hostname\
+# $shlvl\
+# $kubernetes\
+# $directory\
+# $git_branch\
+# $git_commit\
+# $git_state\
+# $git_status\
+# $docker_context\
+# $package\
+# $cmake\
+# $nodejs\
+# $perl\
+# $python \
+# $ruby\
+# $rust\
+# $terraform\
+# $vagrant\
+# $nix_shell\
+# $conda\
+# $aws \
+# $env_var\
+# $cmd_duration\
+# $line_break\
+# $os\
+# $character"""
 # Inserts a blank line between shell prompts
-add_newline = false
-continuation_prompt = "▶▶"
+add_newline = true
 [container]
 disabled = true
 [username]
@@ -44,15 +42,18 @@ show_always = false
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character] # The name of the module we are configuring is "character"
-success_symbol = "[🌈](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
-error_symbol = " [λ](bold red)"
+success_symbol = "[🥳🌈🩷](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[🚨💀](bold red)"
 [cmd_duration]
-min_time = 1000
-[golang]
-format = "via [🏎💨 $version](bold cyan) "
+min_time = 100
+format = '🐌[$duration](bold yellow) '
+
+[fossil_branch]
+symbol = " "
+
 [git_branch]
-format = " [$symbol$branch]($style) "
-symbol = "🍣 "
+symbol = " "
+format = "[$symbol$branch(:$remote_branch)]($style) "
 style = "bold yellow"
 
 [git_commit]
@@ -81,22 +82,20 @@ style = "bold green"
 symbol = "👩‍💻 "
 disabled = false
 
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
+
 [directory]
 truncation_length = 100
 truncate_to_repo = false
 style = "yellow"
 format = "[:$path]($style)[$read_only]($read_only_style) "
-[custom.uptime]
-command = "~/.script/uptime.sh"
-when = "true"
-format = "[$symbol($output)](green)"
-[custom.tztime]
-command = 'TZ=Asia/Shanghai date +"%a %b %d %Y %l:%M%p (%Z%z)"'
-when = "true"
-format = '[\[$symbol($output)\]](green)'
+# [custom.uptime]
+# command = "~/.script/uptime.sh"
+# when = "true"
+# format = "[$symbol($output)](green)"
+# [custom.tztime]
+# command = 'TZ=Asia/Shanghai date +"%a %b %d %Y  "'
+# when = "true"
+# format = '[\[$symbol($output)\]](green)'
 
 [env_var]
 variable = "0"
@@ -107,3 +106,103 @@ format = '[\[$status - $common_meaning\]](green)'
 
 [time]
 disabled = true
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = "󰏗 "
+
+[pijul_channel]
+symbol = " "
+
+[python]
+symbol = " "
+
+[erlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+[memory_usage]
+symbol = "󰍛 "
+[scala]
+symbol = " "
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = "󰍲 "

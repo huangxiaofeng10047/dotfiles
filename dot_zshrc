@@ -89,10 +89,6 @@ export GOROOT_BOOTSTRAP=$GOROOT
 # XMODIFIERS=@im=fcitx
 # SDL_IM_MODULE=fcitx
 # export HISTFILE=/home/xfhuang/.zsh_history
- source <(antibody init)
-export ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh"
-
-antibody bundle < ~/.zsh_plugins.txt
 
 alias ls='colorls'
 alias ll="exa -l -g --icons --git"
@@ -154,3 +150,5 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 # fpath=(/home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/custom/completions /home/xfhuang/.local/share/gem/ruby/3.0.0/gems/colorls-1.4.6/zsh /usr/local/share/zsh/site-functions /usr/share/zsh/site-functions /usr/share/zsh/functions/Calendar /usr/share/zsh/functions/Chpwd /usr/share/zsh/functions/Completion /usr/share/zsh/functions/Completion/Base /usr/share/zsh/functions/Completion/Linux /usr/share/zsh/functions/Completion/Unix /usr/share/zsh/functions/Completion/X /usr/share/zsh/functions/Completion/Zsh /usr/share/zsh/functions/Exceptions /usr/share/zsh/functions/MIME /usr/share/zsh/functions/Math /usr/share/zsh/functions/Misc /usr/share/zsh/functions/Newuser /usr/share/zsh/functions/Prompts /usr/share/zsh/functions/TCP /usr/share/zsh/functions/VCS_Info /usr/share/zsh/functions/VCS_Info/Backends /usr/share/zsh/functions/Zftp /usr/share/zsh/functions/Zle /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/lib /home/xfhuang/.antigen/bundles/zsh-users/zsh-syntax-highlighting /home/xfhuang/.antigen/bundles/zsh-users/zsh-autosuggestions /home/xfhuang/.antigen/bundles/zsh-users/zsh-completions /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/heroku /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/pip /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/lein /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/command-not-found /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/z /home/xfhuang/.antigen/bundles/paulirish/git-open /home/xfhuang/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/kube-ps1 /home/xfhuang/.antigen/bundles/zsh-users/zsh-completions/src)
 # PROMPT='$(kube_ps1)'$PROMPTsource /usr/share/nvm/init-nvm.sh
 # backup file
+export GOPATH=/home/xfhuang/workspace/go
+
