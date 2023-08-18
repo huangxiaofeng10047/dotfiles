@@ -5,6 +5,9 @@
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 # 获取windows的ip
+autoload -Uz compinit
+
+compinit
 export WIN_IP=`cat /etc/resolv.conf | grep nameserver | awk '{print $2}'`
 # 删除 ~/.proxychains.conf 中 [ProxyList] 所在行到文件末尾的全部内容
 sed -i '/\[ProxyList\]/,$d' ~/.proxychains.conf
@@ -16,6 +19,7 @@ alias pc='proxychains4 -q -f ~/.proxychains.conf'
 my_proxy=http://${WIN_IP}:7890
 alias p-on='export all_proxy='${my_proxy}' http_proxy='${my_proxy}' https_proxy='${my_proxy}''
 alias p-off='unset all_proxy http_proxy https_proxy'
+export PROXYCHAINS_CONF_FILE=~/.proxychain.conf
 # source /usr/share/zsh/share/antigen.zsh
 # Load the oh-my-zsh's library
 # oh-my-zsh 会启用历史命令、按键绑定等功能
@@ -32,11 +36,12 @@ alias p-off='unset all_proxy http_proxy https_proxy'
 # antigen bundle command-not-found
 # antigen bundle z
 # antigen bundle paulirish/git-open
-# antigen bundle kubernetes 
+# antigen bundle kubernetes
 # antigen bundle kube-ps1
+#export LD_PRELOAD=/usr/lib/libproxychains4.so
 source <(antibody init)
 antibody bundle < ~/.zsh_plugins.txt
-
+PROMPT='$(kube_ps1)'$PROMPT # or RPROMPT='$(kube_ps1)'
 # 语法高亮功能
 # antigen bundle zsh-users/zsh-syntax-highlighting
 
@@ -60,6 +65,8 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$N..VM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
+export NVM_IOJS_ORG_MIRROR=http://npm.taobao.org/mirrors/iojs
 #开启python虚拟化的环境
 #source .venv/imagesearch/bin/activate
 
@@ -84,41 +91,41 @@ export PATH=$PATH:/home/xfhuang/.local/share/gem/ruby/3.0.0/bin:/home/xfhuang/.l
 export GO_BINARY_BASE_URL=https://golang.google.cn/dl/
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 export GOROOT_BOOTSTRAP=$GOROOT
+export JAVA_HOME=/home/xfhuang/.sdkman/candidates/java/current
 # GTX_IM_MODULE=fcitx
 # QT_IM_MODULE=fcitx
 # XMODIFIERS=@im=fcitx
 # SDL_IM_MODULE=fcitx
 # export HISTFILE=/home/xfhuang/.zsh_history
-
 alias ls='colorls'
 alias ll="exa -l -g --icons --git"
 alias llt="exa -1 --icons --tree --git-ignore"
  source $(dirname $(gem which colorls))/tab_complete.sh
  alias lc='colorls -lA --sd'
-alias jdk8='sdk use java 8.0.372-zulu'
-alias jdk11='sdk use java 11.0.19-zulu'
-alias jdk17='sdk use java  17.0.7-zulu'
-alias jdk20='sdk use java  20.0.2-zulu'
+alias jdk8='sdk default java 8.0.372-zulu'
+alias jdk11='sdk default java 11.0.19-zulu'
+alias jdk17='sdk default java  17.0.7-zulu'
+alias jdk20='sdk default java  20.0.2-zulu'
 alias  k8slocal=" cd workspace/tools/wsl2-minikube"
 alias  toolbox="nohup sudo -u xfhuang /home/xfhuang/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox >/dev/null 2>&1 &"
 alias emacs='emacs -nw'
 
 #datafaker 再zsh下报错添加
 setopt no_nomatch
-# daemonize -e /tmp/dbus-${user}.log -o /tmp/dbus-${USER}.log -p /tmp/dbus-${USER}.pid -l /tmp/dbus-${USER}.pid -a /usr/bin/dbus-daemon --address="unix:path=$XDG_RUNTIME_DIR/bus" --session --nofork >> /dev/null 2>&1
-# export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
-# daemonize -e /tmp/fcitx5.log -o /tmp/fcitx5.log -p /tmp/fcitx5.pid -l /tmp/fcitx5.pid  -a /usr/bin/fcitx5 --disable=wayland  >> /dev/null 2>&1
+ daemonize -e /tmp/dbus-${user}.log -o /tmp/dbus-${USER}.log -p /tmp/dbus-${USER}.pid -l /tmp/dbus-${USER}.pid -a /usr/bin/dbus-daemon --address="unix:path=$XDG_RUNTIME_DIR/bus" --session --nofork >> /dev/null 2>&1
+export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
+ daemonize -e /tmp/fcitx5.log -o /tmp/fcitx5.log -p /tmp/fcitx5.pid -l /tmp/fcitx5.pid  -a /usr/bin/fcitx5 --disable=wayland  >> /dev/null 2>&1
 
-#  export INPUT_METHOD=fcitx
-#  export GTK_IM_MODULE=fcitx
-#  export QT_IM_MODULE=fcitx
-#  export XMODIFIERS=@im=fcitx
+ export INPUT_METHOD=fcitx
+  export GTK_IM_MODULE=fcitx
+  export QT_IM_MODULE=fcitx
+  export XMODIFIERS=@im=fcitx
 # display
 #update by 2023217
-# export GDK_DPI_SCALE=1
+ export GDK_DPI_SCALE=1
 export DISPLAY=:0
-# export WAYLAND_DISPLAY=wayland-0
-# export XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+export WAYLAND_DISPLAY=wayland-0
+ export XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
 # export PULSE_SERVER=/mnt/wslg/PulseServer
 if [[ $TMUX != "" ]] then
   export    TERM="xterm-256color"
@@ -128,6 +135,7 @@ fi
 source /home/xfhuang/.sdkman/bin/sdkman-init.sh
 alias kctx="kubectx"
 alias kns="kubens"
+alias k="kubectl"
 #  PROMPT='$(kube_ps1)'$PROMPT
 
 export KUBECONFIG=:/home/xfhuang/.kube/additional_config:/home/xfhuang/.kube/additional_config
@@ -139,7 +147,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-KUBECONFIG=~/.kube/config111:~/.kube/config222:~/.kube/config333  kubectl config view --merge --flatten > ~/.kube/config
+KUBECONFIG=~/.kube/config111:~/.kube/config222 kubectl config view --merge --flatten > ~/.kube/config
 export KUBECONFIG=~/.kube/config
 export FLINK_HOME=/home/xfhuang/workspace/bigdata/flink/flink-dist/target/flink-1.17-SNAPSHOT-bin/flink-1.17-SNAPSHOT
 export M2_HOME=~/.sdkman/candidates/maven/current
@@ -151,4 +159,4 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 # PROMPT='$(kube_ps1)'$PROMPTsource /usr/share/nvm/init-nvm.sh
 # backup file
 export GOPATH=/home/xfhuang/workspace/go
-
+export PATH="$JAVA_HOME:$PATH"
