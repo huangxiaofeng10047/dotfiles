@@ -7,19 +7,20 @@ NERD_FONT_MEETING="󰤙"
 
 get_attendees() {
 	attendees=$(
-	icalBuddy \
-		--includeEventProps "attendees" \
-		--propertyOrder "datetime,title" \
-		--noCalendarNames \
-		--dateFormat "%A" \
-		--includeOnlyEventsFromNowOn \
-		--limitItems 1 \
-		--excludeAllDayEvents \
-		--separateByDate \
-		--excludeEndDates \
-		--bullet "" \
-		--excludeCals "training,omerxx@gmail.com" \
-		eventsToday)
+		icalBuddy \
+			--includeEventProps "attendees" \
+			--propertyOrder "datetime,title" \
+			--noCalendarNames \
+			--dateFormat "%A" \
+			--includeOnlyEventsFromNowOn \
+			--limitItems 1 \
+			--excludeAllDayEvents \
+			--separateByDate \
+			--excludeEndDates \
+			--bullet "" \
+			--excludeCals "training,hxf168482@gmail.com" \
+			eventsToday
+	)
 }
 
 parse_attendees() {
@@ -27,7 +28,7 @@ parse_attendees() {
 	for line in $attendees; do
 		attendees_array+=("$line")
 	done
-	number_of_attendees=$((${#attendees_array[@]}-3))
+	number_of_attendees=$((${#attendees_array[@]} - 3))
 }
 
 get_next_meeting() {
@@ -41,7 +42,7 @@ get_next_meeting() {
 		--excludeAllDayEvents \
 		--separateByDate \
 		--bullet "" \
-		--excludeCals "training,omerxx@gmail.com" \
+		--excludeCals "training,hxf168482@gmail.com" \
 		eventsToday)
 }
 
@@ -49,17 +50,18 @@ get_next_next_meeting() {
 	end_timestamp=$(date +"%Y-%m-%d ${end_time}:01 %z")
 	tonight=$(date +"%Y-%m-%d 23:59:00 %z")
 	next_next_meeting=$(
-	icalBuddy \
-		--includeEventProps "title,datetime" \
-		--propertyOrder "datetime,title" \
-		--noCalendarNames \
-		--dateFormat "%A" \
-		--limitItems 1 \
-		--excludeAllDayEvents \
-		--separateByDate \
-		--bullet "" \
-		--excludeCals "training,omerxx@gmail.com" \
-		eventsFrom:"${end_timestamp}" to:"${tonight}")
+		icalBuddy \
+			--includeEventProps "title,datetime" \
+			--propertyOrder "datetime,title" \
+			--noCalendarNames \
+			--dateFormat "%A" \
+			--limitItems 1 \
+			--excludeAllDayEvents \
+			--separateByDate \
+			--bullet "" \
+			--excludeCals "training,hxf168482@gmail.com" \
+			eventsFrom:"${end_timestamp}" to:"${tonight}"
+	)
 }
 
 parse_result() {
@@ -72,11 +74,11 @@ parse_result() {
 	title="${array[*]:5:30}"
 }
 
-calculate_times(){
+calculate_times() {
 	epoc_meeting=$(date -j -f "%T" "$time:00" +%s)
 	epoc_now=$(date +%s)
 	epoc_diff=$((epoc_meeting - epoc_now))
-	minutes_till_meeting=$((epoc_diff/60))
+	minutes_till_meeting=$((epoc_diff / 60))
 }
 
 display_popup() {
@@ -87,20 +89,20 @@ display_popup() {
 		-d '#{pane_current_path}' \
 		-T meeting \
 		icalBuddy \
-			--propertyOrder "datetime,title" \
-			--noCalendarNames \
-			--formatOutput \
-			--includeEventProps "title,datetime,notes,url,attendees" \
-			--includeOnlyEventsFromNowOn \
-			--limitItems 1 \
-			--excludeAllDayEvents \
-			--excludeCals "training" \
-			eventsToday
+		--propertyOrder "datetime,title" \
+		--noCalendarNames \
+		--formatOutput \
+		--includeEventProps "title,datetime,notes,url,attendees" \
+		--includeOnlyEventsFromNowOn \
+		--limitItems 1 \
+		--excludeAllDayEvents \
+		--excludeCals "training" \
+		eventsToday
 }
 
 print_tmux_status() {
-	if [[ $minutes_till_meeting -lt $ALERT_IF_IN_NEXT_MINUTES \
-		&& $minutes_till_meeting -gt -60 ]]; then
+	if [[ $minutes_till_meeting -lt $ALERT_IF_IN_NEXT_MINUTES &&
+		$minutes_till_meeting -gt -60 ]]; then
 		echo "$NERD_FONT_MEETING \
 			$time $title ($minutes_till_meeting minutes)"
 	else
