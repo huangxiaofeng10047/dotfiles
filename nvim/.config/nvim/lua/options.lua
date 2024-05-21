@@ -6,7 +6,7 @@ vim.wo.number = true
 vim.o.relativenumber = true
 
 -- Disable mouse mode
-vim.o.mouse = ''
+vim.o.mouse = 'a' -- allow to use mouse
 
 -- Enable break indent
 vim.o.breakindent = true

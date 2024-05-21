@@ -5,5 +5,7 @@ require("codesnap").setup({
   bg_theme = "grape",
   save_path = "~/Pictures",
   parsed= "~/Pictures/CodeSnap_y-m-d_at_h:m:s.png",
-  watermark = ""
+  watermark = "",
+  bg_color = "#535c68",
+  breadcrumbs_separator = "👉"
 })
