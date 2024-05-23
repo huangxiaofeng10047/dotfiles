@@ -272,4 +272,36 @@ require('lazy').setup({
       -- refer to the configuration section below
     }
   },
+	dev = {
+		path = "~/.ghq/github.com",
+	},
+	checker = { enabled = true }, -- automatically check for plugin updates
+	performance = {
+		cache = {
+			enabled = true,
+			-- disable_events = {},
+		},
+		rtp = {
+			-- disable some rtp plugins
+			disabled_plugins = {
+				"gzip",
+				-- "matchit",
+				-- "matchparen",
+				"netrwPlugin",
+				"rplugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
+	ui = {
+		custom_keys = {
+			["<localleader>d"] = function(plugin)
+				dd(plugin)
+			end,
+		},
+	},
+	debug = false,
 })

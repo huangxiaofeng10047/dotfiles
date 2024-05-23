@@ -1,72 +1,67 @@
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
-require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 
-    'go', 'lua', 'python', 'rust', 'typescript', 'regex', 
-    'bash', 'markdown', 'markdown_inline', 'kdl', 'sql', 'org', 'terraform',
-    'html', 'css', 'javascript', 'yaml', 'json', 'toml',
-  },
+return {
+	{ "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 
-  highlight = { enable = true },
-  indent = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<c-backspace>',
-    },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-        ['ii'] = '@conditional.inner',
-        ['ai'] = '@conditional.outer',
-        ['il'] = '@loop.inner',
-        ['al'] = '@loop.outer',
-        ['at'] = '@comment.outer',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']f'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']F'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[f'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[F'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
-    },
-  },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = {
+			ensure_installed = {
+				"astro",
+				"cmake",
+				"cpp",
+				"css",
+				"fish",
+				"gitignore",
+				"go",
+				"graphql",
+				"http",
+				"java",
+				"php",
+				"rust",
+				"scss",
+				"sql",
+				"svelte",
+			},
+
+			-- matchup = {
+			-- 	enable = true,
+			-- },
+
+			-- https://github.com/nvim-treesitter/playground#query-linter
+			query_linter = {
+				enable = true,
+				use_virtual_text = true,
+				lint_events = { "BufWrite", "CursorHold" },
+			},
+
+			playground = {
+				enable = true,
+				disable = {},
+				updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+				persist_queries = true, -- Whether the query persists across vim sessions
+				keybindings = {
+					toggle_query_editor = "o",
+					toggle_hl_groups = "i",
+					toggle_injected_languages = "t",
+					toggle_anonymous_nodes = "a",
+					toggle_language_display = "I",
+					focus_language = "f",
+					unfocus_language = "F",
+					update = "R",
+					goto_node = "<cr>",
+					show_help = "?",
+				},
+			},
+		},
+		config = function(_, opts)
+			require("nvim-treesitter.configs").setup(opts)
+
+			-- MDX
+			vim.filetype.add({
+				extension = {
+					mdx = "mdx",
+				},
+			})
+			vim.treesitter.language.register("markdown", "mdx")
+		end,
+	},
 }
-
