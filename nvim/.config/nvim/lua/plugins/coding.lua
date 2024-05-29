@@ -103,7 +103,7 @@ return {
 		opts = {
 			save_path = "~/Pictures",
 			has_breadcrumbs = true,
-			breadcrumbs_separat = "🆗",
+			breadcrumbs_separator = "🆗",
 			watermark = "",
 			bg_theme = "grape",
 			bg_color = "#535c68",
