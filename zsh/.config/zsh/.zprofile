@@ -33,3 +33,4 @@ path=(
   /usr/local/{,s}bin(N)
   $path
 )
+# If running from tty1 start sway
