@@ -1,0 +1,100 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# 获取windows的ip
+export WIN_IP=`cat /etc/resolv.conf | grep nameserver | awk '{print $2}'`
+# 删除 ~/.proxychains.conf 中 [ProxyList] 所在行到文件末尾的全部内容
+alias p-off='unset all_proxy http_proxy https_proxy'
+source /usr/share/zsh/share/antigen.zsh
+# Load the oh-my-zsh's library
+# oh-my-zsh 会启用历史命令、按键绑定等功能
+antigen use oh-my-zsh
+# 启用一些 bundle
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+antigen bundle z
+antigen bundle paulirish/git-open
+antigen bundle kubernetes
+
+# 语法高亮功能
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# 代码提示功能
+antigen bundle zsh-users/zsh-autosuggestions
+
+# 自动补全功能
+antigen bundle zsh-users/zsh-completions
+# Load the theme
+antigen theme af-magic
+antigen apply
+# for ls colors
+#LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34:cd=34:su=36:sg=36:tw=34:ow=34"
+export LS_COLORS
+#启用starship
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+ source /home/xfhuang/.sdkman/bin/sdkman-init.sh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [[ -z $ranger ]];
+then
+  python $HOME/.script/rainbow-ascii-art.py
+fi
+eval "$(starship init zsh)"
+ export NO_PROXY=localhost,127.0.0.1,10.0.37.153,qua.io
+export PATH=$PATH:/home/xfhuang/.local/share/gem/ruby/3.3.0/bin
+alias blog='cd /mnt/e/myhugo'
+
+
+ export INPUT_METHOD=fcitx
+ export GTK_IM_MODULE=fcitx
+ export QT_IM_MODULE=fcitx
+ export XMODIFIERS=@im=fcitx
+ if [ $SHLVL = 1 ] ; then
+   (fcitx-autostart > /dev/null 2>&1 &)
+   xset -r 49  > /dev/null 2>&1
+ fi
+export DISPLAY=`cat /etc/resolv.conf | grep nameserver | awk '{print $2}'`:0
+
+export GOPROXY=https://goproxy.cn
+
+
+
+source <(antibody init)
+
+antibody bundle < ~/.zsh_plugins.txt
+alias ls='colorls'
+
+
+alias hyper="cmd.exe /c hyper"
+
+antibody bundle < ~/.zsh_plugins.txt
+    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# 配置 Golang 软件包镜像
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn,direct
+# 下载 Golang 的二进制文件或源码压缩包进行安装
+export GO_BINARY_BASE_URL=https://mirrors.aliyun.com/golang/
+# 根据软件的实际安装情况来选择性加载 gvm
+# 确保 Golang 使用源码编译安装时，不会出错（golang 1.14后需要 ）
+
+
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+# 确保 Golang 使用源码编译安装时，不会出错（golang 1.14后需要 ）
+
